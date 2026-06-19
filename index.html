@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Reproducing modern world-model agents — DreamerV3 and a JEPA world model — across four control and game environments on a single workstation.">
+  <meta name="keywords" content="World Models, DreamerV3, JEPA, Reinforcement Learning, Minecraft, ProcGen, PushT, Reproduction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wm.github.io</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+  <style>
+    /* ---- project-specific styling ---- */
+    .task-card { margin-bottom: 1.5rem; }
+    .task-meta .tag { margin-right: .35rem; margin-bottom: .35rem; }
+    .epoch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .epoch-slot { text-align: center; }
+    .epoch-slot .epoch-label { font-weight: 600; margin-bottom: .4rem; }
+    .epoch-slot .epoch-path  {
+      font-family: monospace; font-size: .72rem; color: #7a7a7a; margin-top: .35rem;
+      word-break: break-all;
+    }
+    /* placeholder box shown until a real video/gif is dropped in */
+    .media-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 1 / 1;
+      border: 2px dashed #b5b5b5; border-radius: 10px;
+      background: repeating-linear-gradient(45deg,#fafafa,#fafafa 10px,#f2f2f2 10px,#f2f2f2 20px);
+      color: #9a9a9a; font-family: monospace; font-size: .8rem; text-align: center;
+      padding: .5rem;
+    }
+    .epoch-slot video, .epoch-slot img {
+      width: 100%; border-radius: 10px; display: block; aspect-ratio: 1 / 1; object-fit: cover;
+    }
+    .codebase-pill {
+      display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.04em;
+      text-transform:uppercase; padding:.15rem .55rem; border-radius:999px; margin-bottom:.5rem;
+    }
+    .pill-lewm   { background:#eef2ff; color:#3b4cca; }
+    .pill-dreamer{ background:#eafaf1; color:#1f9d55; }
+    .highlight-list li { margin-bottom:.6rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item has-text-weight-bold" href="#">wm.github.io</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="#tasks">Tasks</a>
+      <a class="navbar-item" href="#highlights">Engineering</a>
+      <a class="navbar-item" href="https://github.com/">LeWM repo</a>
+      <a class="navbar-item" href="https://github.com/danijar/dreamerv3">DreamerV3 repo</a>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">wm.github.io</h1>
+          <h2 class="subtitle is-4" style="margin-top:1rem;">
+            Reproducing Modern World-Model Agents from Scratch
+          </h2>
+          <p class="is-size-5" style="max-width:720px;margin:0 auto;">
+            A solo reproduction of two world-model frameworks &mdash;
+            <b>DreamerV3</b> (JAX) and a <b>JEPA-based world model (LeWM)</b> &mdash;
+            trained across four control and game environments on a single dual-RTX-4090 workstation.
+          </p>
+
+          <div class="is-size-5 publication-authors" style="margin-top:1.25rem;">
+            <span class="author-block">Jihao Dong</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><!-- TODO: affiliation / role --> Independent Project &mdash; 2026</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- LeWM code -->
+              <span class="link-block">
+                <a href="https://github.com/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>LeWM Code</span>
+                </a>
+              </span>
+              <!-- DreamerV3 code -->
+              <span class="link-block">
+                <a href="https://github.com/danijar/dreamerv3" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>DreamerV3 Code</span>
+                </a>
+              </span>
+              <!-- Resume (placeholder) -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Resume</span>
+                </a>
+              </span>
+              <!-- Email -->
+              <span class="link-block">
+                <a href="mailto:jihaodong6@gmail.com" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-envelope"></i></span>
+                  <span>Email</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Optional hero teaser placeholder -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="media-placeholder" style="aspect-ratio:21/9;">
+        teaser video &mdash; drop file at ./static/videos/teaser.mp4
+      </div>
+      <h2 class="subtitle has-text-centered" style="margin-top:1rem;">
+        Four environments, two world-model algorithms, one workstation.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- Overview -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            World models learn to predict their environment and let an agent plan or learn behavior
+            inside the learned simulation. This project reproduces two influential world-model
+            approaches end to end &mdash; setting up the environments, fixing the training
+            infrastructure, and running them to convergence on a single workstation
+            (2&times; RTX 4090, 61&nbsp;GB RAM).
+          </p>
+          <p>
+            <b>DreamerV3</b> is a general model-based RL agent (JAX) that learns a recurrent latent
+            world model and trains an actor-critic entirely in imagination. I reproduce it on
+            <b>Minecraft (Diamond)</b> via MineRL and on <b>ProcGen CoinRun</b>.
+            <b>LeWM</b> is a JEPA-style latent world model that predicts future representations
+            rather than pixels; I reproduce it on the <b>Cube</b> manipulation and <b>PushT</b>
+            control tasks. For every task the page shows how rollouts improve across training epochs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== TASKS ===================== -->
+<section class="section" id="tasks">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered" style="margin-bottom:2.5rem;">Tasks &amp; Epoch Comparisons</h2>
+
+    <!-- ---------- Task 1: LeWM Cube ---------- -->
+    <div class="task-card">
+      <span class="codebase-pill pill-lewm">LeWM &middot; JEPA World Model</span>
+      <h3 class="title is-4">Cube Manipulation</h3>
+      <div class="content">
+        <p>
+          A JEPA latent world model trained on the Cube dataset: it predicts future latent states
+          of a robot rearranging cubes. To get GPU-bound throughput I converted the dataset from
+          HDF5 to Lance, cutting epoch time from ~67 to ~55&nbsp;min and saturating the GPU.
+          The clips below show predicted rollouts at increasing epochs &mdash; geometry and motion
+          sharpen as training progresses.
+        </p>
+      </div>
+      <div class="epoch-grid">
+        <div class="epoch-slot">
+          <div class="epoch-label">Epoch 0 (init)</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/cube/epoch0.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Epoch 10</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/cube/epoch10.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Epoch 20 (converged)</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/cube/epoch20.mp4</div>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <!-- ---------- Task 2: LeWM PushT ---------- -->
+    <div class="task-card">
+      <span class="codebase-pill pill-lewm">LeWM &middot; JEPA World Model</span>
+      <h3 class="title is-4">PushT</h3>
+      <div class="content">
+        <p>
+          PushT is a 2D contact-rich control task (pymunk/pygame) where an agent pushes a T-shaped
+          block to a target pose. The world model is trained on expert trajectories and evaluated by
+          rolling out planned actions. The clips below compare evaluation episodes at different
+          training checkpoints, showing the policy completing the push more reliably over time.
+        </p>
+      </div>
+      <div class="epoch-grid">
+        <div class="epoch-slot">
+          <div class="epoch-label">Early checkpoint</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/pusht/epoch0.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Mid checkpoint</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/pusht/epoch200.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Final checkpoint</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/pusht/epoch1000.mp4</div>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <!-- ---------- Task 3: DreamerV3 Minecraft ---------- -->
+    <div class="task-card">
+      <span class="codebase-pill pill-dreamer">DreamerV3 &middot; JAX</span>
+      <h3 class="title is-4">Minecraft &mdash; Diamond</h3>
+      <div class="content">
+        <p>
+          A 200M-parameter DreamerV3 agent trained on MineRL's <code>minecraft_diamond</code>, the
+          12-milestone curriculum from logs to diamond. Running this headless on a single 4090
+          required Java&nbsp;8 + xvfb, a pinned numpy/JAX stack, a 64&nbsp;GB swapfile with a capped
+          replay buffer, and an hourly replay-chunk cleaner. The agent reached the <b>iron tier
+          (score ≈ 10)</b> at ~2.3M environment steps (~3.4M steps/day at 4 envs). The clips compare
+          the agent's behavior at increasing training steps.
+        </p>
+      </div>
+      <div class="epoch-grid">
+        <div class="epoch-slot">
+          <div class="epoch-label">~0.2M steps</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/minecraft/step02m.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">~1M steps</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/minecraft/step1m.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">~2.3M steps (iron)</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/minecraft/step23m.mp4</div>
+        </div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <!-- ---------- Task 4: DreamerV3 ProcGen CoinRun ---------- -->
+    <div class="task-card">
+      <span class="codebase-pill pill-dreamer">DreamerV3 &middot; JAX</span>
+      <h3 class="title is-4">ProcGen &mdash; CoinRun</h3>
+      <div class="content">
+        <p>
+          CoinRun is a procedurally-generated platformer from the ProcGen benchmark &mdash; pure
+          C++/Python, GPU-bound, and far faster in wall-clock than Minecraft. Training DreamerV3 at
+          8 parallel envs, a ~3-hour run reached <b>~59% level completion</b>. The clips compare the
+          policy early in training versus after convergence.
+        </p>
+      </div>
+      <div class="epoch-grid">
+        <div class="epoch-slot">
+          <div class="epoch-label">Early</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/coinrun/early.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Mid</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/coinrun/mid.mp4</div>
+        </div>
+        <div class="epoch-slot">
+          <div class="epoch-label">Converged (~59%)</div>
+          <div class="media-placeholder">drop video / gif here</div>
+          <div class="epoch-path">./static/videos/coinrun/final.mp4</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================== ENGINEERING HIGHLIGHTS ===================== -->
+<section class="section" id="highlights">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Engineering Highlights</h2>
+        <div class="content">
+          <ul class="highlight-list">
+            <li>
+              <b>Stabilized large RL/world-model training on a single workstation</b>
+              (2&times; RTX 4090, 61&nbsp;GB RAM) &mdash; ran a 200M DreamerV3 model and a JEPA world
+              model to convergence, including two trainings in parallel pinned across GPUs.
+            </li>
+            <li>
+              <b>Root-caused a flaky XLA GPU compile-time autotuning segfault</b> that hit ~50% of
+              Minecraft launches. Isolated it with a controlled experiment (same graph, no Minecraft)
+              and fixed it via XLA flags (<code>xla_gpu_autotune_level=0</code>, disabled
+              preallocation) &mdash; <b>6/6 clean launches</b> vs. a ~50% baseline.
+            </li>
+            <li>
+              <b>Memory &amp; disk engineering for unbounded replay.</b> Added a 64&nbsp;GB swapfile,
+              capped the replay buffer, and wrote an hourly replay-chunk cleaner to bound disk growth
+              (~18&nbsp;GB per 1M steps), keeping long Minecraft runs stable at ~45&nbsp;fps with near-zero iowait.
+            </li>
+            <li>
+              <b>Diagnosed a dataloader OOM</b> in LeWM caused by an end-of-epoch validation worker
+              pool spiking the working set; tuned worker count and persistence to remove the thrash.
+            </li>
+            <li>
+              <b>Data-pipeline throughput.</b> Converted HDF5 datasets to Lance for GPU-bound reads,
+              cutting Cube epoch time from ~67 to ~55&nbsp;min and saturating the GPU.
+            </li>
+            <li>
+              <b>Headless, reproducible environments.</b> MineRL via Java&nbsp;8 + xvfb with a pinned
+              numpy/JAX stack; ProcGen and PushT set up from source; live agent-view monitoring served
+              over HTTP.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Built on the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project
+            page template, licensed under
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // navbar burger toggle (vanilla, no jQuery needed)
+  document.addEventListener('DOMContentLoaded', function () {
+    var burger = document.querySelector('.navbar-burger');
+    var menu = document.querySelector('.navbar-menu');
+    if (burger && menu) {
+      burger.addEventListener('click', function () {
+        burger.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
