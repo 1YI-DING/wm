@@ -8,25 +8,24 @@ Project page for a solo reproduction of two world-model frameworks across four e
 The page (`index.html`) is a single static file — open it directly or serve it with any static
 server (e.g. `python -m http.server`).
 
-## Adding the epoch-comparison clips
+## Media status
 
-Each task has placeholder slots for per-epoch clips. Drop a `.mp4` (or `.gif`) at the path printed
-under each slot, then swap the placeholder `<div class="media-placeholder">…</div>` for a
-`<video autoplay muted loop playsinline></video>` (or `<img>`) pointing at it:
+| Task | Status | Files |
+|------|--------|-------|
+| LeWM · Cube   | ✅ wired | `static/videos/cube/dataset_groundtruth.gif`, `learned_epoch19.gif` |
+| LeWM · PushT  | ✅ wired | `static/videos/pusht/progression_epochs.gif`, `grid_scenarios.gif` |
+| DreamerV3 · Minecraft | ⏳ placeholder | drop clips in `static/videos/minecraft/` |
+| DreamerV3 · CoinRun   | ⏳ placeholder | drop clips in `static/videos/coinrun/` |
 
-```
-static/videos/cube/      epoch0.mp4   epoch10.mp4  epoch20.mp4
-static/videos/pusht/     epoch0.mp4   epoch200.mp4 epoch1000.mp4
-static/videos/minecraft/ step02m.mp4  step1m.mp4   step23m.mp4
-static/videos/coinrun/   early.mp4    mid.mp4      final.mp4
-static/videos/teaser.mp4 (optional hero clip)
-```
+For the placeholder tasks, drop a `.mp4` (or `.gif`) at the path printed under each slot in the
+page, then swap the `<div class="media-placeholder">…</div>` for a
+`<video autoplay muted loop playsinline></video>` (or `<img>`) pointing at it.
 
 ## TODO before publishing
 
-- Fill in your name / affiliation / resume link in the hero (`<!-- TODO -->` markers in `index.html`).
+- Fill in your affiliation / resume link in the hero (`<!-- TODO -->` markers in `index.html`).
 - Point the "LeWM Code" GitHub button at the real repo URL.
-- Drop in the epoch clips (see above).
+- Render and drop in the Minecraft / CoinRun epoch clips.
 
 ## Template credit
 

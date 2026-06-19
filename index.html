@@ -191,28 +191,25 @@
       <h3 class="title is-4">Cube Manipulation</h3>
       <div class="content">
         <p>
-          A JEPA latent world model trained on the Cube dataset: it predicts future latent states
-          of a robot rearranging cubes. To get GPU-bound throughput I converted the dataset from
-          HDF5 to Lance, cutting epoch time from ~67 to ~55&nbsp;min and saturating the GPU.
-          The clips below show predicted rollouts at increasing epochs &mdash; geometry and motion
-          sharpen as training progresses.
+          A JEPA latent world model trained on the Cube manipulation dataset (OGBench
+          <code>cube_single</code>): it predicts future latent states of a robot rearranging cubes.
+          I converted the dataset from HDF5 to Lance for GPU-bound throughput, cutting epoch time
+          from ~67 to ~55&nbsp;min and saturating the GPU. Below, the training rollout (ground truth)
+          sits next to the model's evaluation rollout after training.
         </p>
       </div>
-      <div class="epoch-grid">
-        <div class="epoch-slot">
-          <div class="epoch-label">Epoch 0 (init)</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/cube/epoch0.mp4</div>
+      <div class="columns is-vcentered">
+        <div class="column is-one-quarter has-text-centered">
+          <img src="./static/videos/cube/dataset_groundtruth.gif" alt="Cube training rollout (ground truth)"
+               style="width:100%;border-radius:10px;">
+          <p class="is-size-7" style="margin-top:.4rem;">Training rollout (ground truth)</p>
         </div>
-        <div class="epoch-slot">
-          <div class="epoch-label">Epoch 10</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/cube/epoch10.mp4</div>
-        </div>
-        <div class="epoch-slot">
-          <div class="epoch-label">Epoch 20 (converged)</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/cube/epoch20.mp4</div>
+        <div class="column has-text-centered">
+          <img src="./static/videos/cube/learned_epoch19.gif" alt="Cube learned rollout at epoch 19"
+               style="width:100%;border-radius:10px;">
+          <p class="is-size-7" style="margin-top:.4rem;">
+            Learned world-model evaluation at <b>epoch&nbsp;19</b> &mdash; agent &middot; ground truth &middot; goal
+          </p>
         </div>
       </div>
     </div>
@@ -227,27 +224,25 @@
         <p>
           PushT is a 2D contact-rich control task (pymunk/pygame) where an agent pushes a T-shaped
           block to a target pose. The world model is trained on expert trajectories and evaluated by
-          rolling out planned actions. The clips below compare evaluation episodes at different
-          training checkpoints, showing the policy completing the push more reliably over time.
+          rolling out planned actions. The clips below compare the same scenarios across training
+          epochs &mdash; the policy fails early and solves the push reliably after training.
         </p>
       </div>
-      <div class="epoch-grid">
-        <div class="epoch-slot">
-          <div class="epoch-label">Early checkpoint</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/pusht/epoch0.mp4</div>
-        </div>
-        <div class="epoch-slot">
-          <div class="epoch-label">Mid checkpoint</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/pusht/epoch200.mp4</div>
-        </div>
-        <div class="epoch-slot">
-          <div class="epoch-label">Final checkpoint</div>
-          <div class="media-placeholder">drop video / gif here</div>
-          <div class="epoch-path">./static/videos/pusht/epoch1000.mp4</div>
-        </div>
-      </div>
+      <figure class="has-text-centered">
+        <img src="./static/videos/pusht/progression_epochs.gif" alt="PushT rollouts at epochs 3, 5, 10, 20"
+             style="width:100%;max-width:920px;border-radius:10px;">
+        <figcaption class="is-size-7" style="margin-top:.5rem;">
+          Same scenario evaluated at <b>epochs 3 &rarr; 5 &rarr; 10 &rarr; 20</b>.
+          Green border = task solved, red = failed.
+        </figcaption>
+      </figure>
+      <figure class="has-text-centered" style="margin-top:1.5rem;">
+        <img src="./static/videos/pusht/grid_scenarios.gif" alt="Three PushT scenarios across epochs"
+             style="width:100%;max-width:920px;border-radius:10px;">
+        <figcaption class="is-size-7" style="margin-top:.5rem;">
+          Three scenarios (rows) across the same epochs (columns) &mdash; success counts rise left to right.
+        </figcaption>
+      </figure>
     </div>
 
     <hr/>
