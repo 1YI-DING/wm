@@ -15,7 +15,7 @@ server (e.g. `python -m http.server`).
 | LeWM · Cube   | ✅ wired | `static/videos/cube/dataset_groundtruth.gif`, `learned_epoch19.gif` |
 | LeWM · PushT  | ✅ wired | `static/videos/pusht/progression_epochs.gif`, `grid_scenarios.gif` |
 | DreamerV3 · Minecraft | ✅ wired | `static/videos/minecraft/step02m.mp4`, `step1m.mp4`, `step23m.mp4` |
-| DreamerV3 · CoinRun   | ⏳ placeholder | drop clips in `static/videos/coinrun/` |
+| DreamerV3 · CoinRun   | ✅ wired | `static/videos/coinrun/early.mp4`, `mid.mp4`, `final.mp4` |
 
 For the placeholder tasks, drop a `.mp4` (or `.gif`) at the path printed under each slot in the
 page, then swap the `<div class="media-placeholder">…</div>` for a
