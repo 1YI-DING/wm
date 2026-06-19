@@ -1,4 +1,4 @@
-# wm.github.io
+# WM — World Models Reproduction
 
 Project page for a solo reproduction of two world-model frameworks across four environments:
 
