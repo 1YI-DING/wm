@@ -212,6 +212,24 @@
           </p>
         </div>
       </div>
+
+      <div class="columns is-vcentered" style="margin-top:1rem;">
+        <div class="column has-text-centered">
+          <video autoplay muted loop playsinline style="width:100%;border-radius:10px;">
+            <source src="./static/videos/cube/grid_cube.mp4" type="video/mp4">
+          </video>
+          <p class="is-size-7" style="margin-top:.4rem;color:#7a7a7a;">
+            Three scenarios (rows) across epochs 5 / 10 / 20 / 48 (columns). Green = solved, red = failed.
+          </p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="./static/videos/cube/success_curve.png" alt="Cube success rate vs training epoch"
+               style="width:100%;border-radius:10px;">
+          <p class="is-size-7" style="margin-top:.4rem;color:#7a7a7a;">
+            Success rate vs. training epoch &mdash; nominal success peaks at ~56% around epoch&nbsp;10.
+          </p>
+        </div>
+      </div>
     </div>
 
     <hr/>
